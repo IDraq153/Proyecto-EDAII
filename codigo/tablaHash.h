@@ -2,22 +2,20 @@
 #define TABLAHASH_H
 #include "metricas.h"
 #include "incidente.h"
+#include "maxHeap.h"
 
 class TablaHash {
-    private:
-        Metricas* metricas;
-        // incidentes es una tabla 
-        Incidente* tablaIncidentes;
-        // Tamaño
-        int cantidadIncidentes;
-        int tamañoTabla;
+private:
+    Metricas* metricas;
+    Incidente** tablaIncidentes;
+    int cantidadIncidentes;
+    int tamanoTabla;
 
-    public:
-        TablaHash(int tamañoTabla);
-        ~TablaHash();
+public:
+    TablaHash(int tamanoTabla);
+    ~TablaHash();
 
-        int funcionHash(int id);
-        void registrarAlerta(int id, int severidad);
+    int funcionHash(int id);
+    void registrarAlerta(int id, int severidad);
 };
-
 #endif // TABLAHASH_H

@@ -3,17 +3,14 @@
 // Abrir archivo
 bool LectorCSV::abrirArchivo(string nombreArchivo) {
     archivo.open(nombreArchivo);
-
     if (!archivo.is_open()) {
         cout << "Error al abrir el archivo" << endl;
         return false;
     }
-
     string linea;
 
     // Saltar encabezados
     getline(archivo, linea);
-
     return true;
 }
 
@@ -26,7 +23,6 @@ bool LectorCSV::leerSiguienteAlerta(int& numero_alerta, int& numero_incidente, i
     if (!getline(archivo, linea)) {
         return false;
     }
-
     stringstream ss(linea);
 
     // Leer alerta
@@ -39,7 +35,6 @@ bool LectorCSV::leerSiguienteAlerta(int& numero_alerta, int& numero_incidente, i
 
     // Leer severidad
     ss >> severidad;
-
     return true;
 }
 

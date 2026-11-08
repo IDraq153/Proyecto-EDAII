@@ -4,11 +4,22 @@
 #include <string>
 #include "incidente.h"
 #include "metricas.h"
-#include "tabla_hash.h"
-#include "max_heap.h"
+#include "tablaHash.h"
+#include "maxHeap.h"
 #include "lector_csv.h"
 using namespace std;
 using namespace std::chrono;
+
+// funcion pasar al heap ira en main
+// void pasarAlHeap(maxHeap& heap, Metricas& metricas) {
+//     for (int i = 0; i < tamañoTabla; i++) {
+//         Incidente* actual = tablaIncidentes[i];
+//         while (actual != nullptr) {
+//             heap.insertar(*actual, metricas);
+//             actual = actual->siguiente;
+//         }
+//     }
+// }
 
 int main(int argumentos, char* arvg[]) {
     
@@ -17,7 +28,7 @@ int main(int argumentos, char* arvg[]) {
         return 1;
     }
     string ruta_entrada = arvg[1];
-    string carpeta_salida = (argumentos >=3) ? arvg[2] : "resultados"
+    string carpeta_salida = (argumentos >=3) ? arvg[2] : "resultados";
     Metricas metricas;
     TablaHash table(metricas);
     MaxHeap heap(metricas);
@@ -33,3 +44,4 @@ int main(int argumentos, char* arvg[]) {
     string alerta_id, incidente_id;
     return 0;
 }
+
