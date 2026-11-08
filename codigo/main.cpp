@@ -30,6 +30,6 @@ int main(int argumentos, char* arvg[]) {
 
     auto inicio = high_resolution_clock::now();
 
-    
+    string alerta_id, incidente_id;
     return 0;
 }
