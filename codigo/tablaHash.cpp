@@ -8,3 +8,10 @@ TablaHash::TablaHash(int tamañoTabla) {
     this->metricas = new Metricas();
 }
 
+TablaHash::~TablaHash() {
+    delete[] metricas;
+    delete[] incidentes;
+
+    metricas = nullptr;
+    incidentes = nullptr;
+}
