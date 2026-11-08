@@ -55,6 +55,8 @@ QUIEN USA A QUIEN
 TablaHash y MaxHeap usan Incidente y reciben Metricas para contar.
 main crea cada pieza y las conecta.
 
+
+
 - PSEUDOCODIGO TABLA_HASH
 
 FUNCION registrarAlerta(id, severidad) 
@@ -62,10 +64,25 @@ FUNCION registrarAlerta(id, severidad)
     actual <- tablaIncidente[posicion]
 
     MIENTRAS actual no este vacio HACER
-        
+        sondeoHash <- sondeoHash + 1
+
         SI actual.incidente_id = id ENTONCES
-            
             actual.cantidad_alertas + 1
             actual.prioridad_total + severidad
+        FIN SI
+
+        actual <- actual.siguiente
+    FIN MIENTRAS
+
+    nuevoIncidente // se crea un nuevo incidente y se asigna sus elementos
+
+    cantidadIncidentes  <- cantidadIncidentes + 1
+
+    SI cantidadIncidentes > tamañoTabla ENTONCES
+        agrandarTabla()
+    FIN SI
+
+FIN FUNCION
+
 
 
