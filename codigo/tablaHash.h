@@ -11,15 +11,10 @@ class TablaHash {
         int tamañoTabla;
 
     public:
-        TablaHash(int tamañoTabla) {
-            this->tamañoTabla = tamañoTabla;
-        }
+        TablaHash(int tamañoTabla);
         ~TablaHash();
 
-        void registrarAlerta() {
-                
-        }
-
+        void registrarAlerta(int id, int severidad);
 };
 
 #endif // TABLAHASH_H
