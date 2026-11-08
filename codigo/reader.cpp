@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    ifstream archivo("40data.csv");
+    ifstream archivo("../datos_prueba/5000data.csv");
 
     if (!archivo.is_open()) {
         cout << "Error al abrir el archivo" << endl;
