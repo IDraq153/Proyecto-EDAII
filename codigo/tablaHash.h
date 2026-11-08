@@ -6,7 +6,9 @@
 class TablaHash {
     private:
         Metricas* metricas;
-        Incidente* incidentes;
+        // incidentes es una tabla 
+        Incidente* tablaIncidentes;
+        // Tamaño
         int cantidadIncidentes;
         int tamañoTabla;
 
@@ -14,6 +16,7 @@ class TablaHash {
         TablaHash(int tamañoTabla);
         ~TablaHash();
 
+        int funcionHash(int id);
         void registrarAlerta(int id, int severidad);
 };
 
