@@ -9,9 +9,6 @@ TablaHash::TablaHash(int tamañoTabla) {
 }
 
 TablaHash::~TablaHash() {
-    delete[] metricas;
     delete[] incidentes;
-
-    metricas = nullptr;
-    incidentes = nullptr;
+    delete metricas;
 }
