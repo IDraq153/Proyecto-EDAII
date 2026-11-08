@@ -23,11 +23,15 @@ int main() {
         stringstream ss(linea);
 
         getline(ss, alerta_id, ',');
+        int numero_alerta = stoi(alerta_id.substr(1));
+        
         getline(ss, incidente_id, ',');
+        int numero_incidente = stoi(incidente_id.substr(4));
+        
         ss >> severidad;
 
-        cout << "Alerta: " << alerta_id << endl;
-        cout << "Incidente: " << incidente_id << endl;
+        cout << "Alerta: " << numero_alerta << endl;
+        cout << "Incidente: " << numero_incidente << endl;
         cout << "Severidad: " << severidad << endl;
         cout << "-------------------" << endl;
     }
