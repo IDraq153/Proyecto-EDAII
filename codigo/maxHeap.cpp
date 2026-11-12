@@ -76,7 +76,7 @@ private:
 public:
     maxHeap::maxHeap(int capacidad, Metricas& metricas){
         this->capacidad = capacidad;
-        this->metricas = metricas;
+        this->metricas = metricas;git
         this->cantidad = -1;
         this->arreglo = new Incidente();
 
