@@ -97,6 +97,16 @@ public:
 
     }
 
+    Incidente* maxHeap::sacarMayor(){
+        Incidente* mayor = arreglo[0];
+        cantidad--;
+        arreglo[0] = arreglo[cantidad];
+        arreglo[cantidad] = nullptr;
+        bajar(0);
+        return mayor;
+
+    }
+
 
 
 
