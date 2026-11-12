@@ -1,0 +1,4 @@
+sondeos_hash=0
+comparaciones_heap=0
+intercambios_heap=0
+tiempo_proceso_ms=42.4951

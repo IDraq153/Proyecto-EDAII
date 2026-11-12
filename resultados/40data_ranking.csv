@@ -1,0 +1,9 @@
+posicion,incidente_id,cantidad_alertas,prioridad_total
+1,INC-05,1,1
+2,INC-07,4,4
+3,INC-01,6,6
+4,INC-03,11,11
+5,INC-04,4,4
+6,INC-06,5,5
+7,INC-02,4,4
+8,INC-08,5,5

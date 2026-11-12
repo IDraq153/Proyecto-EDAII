@@ -1,24 +1,26 @@
 #ifndef INCIDENTE_H
 #define INCIDENTE_H
 
+#include <string>
+
 struct Incidente {
-    int incidente_id;
+    std::string incidente_id;
+                                //  el ranking debe imprimir el ID original INC-0000050 al ser int da problema
     int cantidad_alertas;
     int prioridad_total;
-    Incidente* siguiente;
+    Incidente* siguiente;       // siguiente nodo en la lista (encadenamiento)
 
     // Constructor por defecto
-    Incidente() 
-        : incidente_id(0), cantidad_alertas(0), prioridad_total(0), siguiente(nullptr) {}
+    Incidente()
+        : incidente_id(""), cantidad_alertas(0), prioridad_total(0), siguiente(nullptr) {}
 
     // Constructor para inicializar un nuevo incidente con su primera alerta
-    Incidente(int id, int severidad_inicial) 
+    Incidente(const std::string& id, int severidad_inicial)
         : incidente_id(id), cantidad_alertas(1), prioridad_total(severidad_inicial), siguiente(nullptr) {}
 
-    // Constructor parametrizado completo (util para transferir datos al Heap)
-    Incidente(int id, int alertas, int prioridad)
+    // Constructor parametrizado completo
+    Incidente(const std::string& id, int alertas, int prioridad)
         : incidente_id(id), cantidad_alertas(alertas), prioridad_total(prioridad), siguiente(nullptr) {}
 };
-
 
 #endif // INCIDENTE_H

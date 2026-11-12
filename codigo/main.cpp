@@ -10,38 +10,109 @@
 using namespace std;
 using namespace std::chrono;
 
-// funcion pasar al heap ira en main
-// void pasarAlHeap(maxHeap& heap, Metricas& metricas) {
-//     for (int i = 0; i < tamañoTabla; i++) {
-//         Incidente* actual = tablaIncidentes[i];
-//         while (actual != nullptr) {
-//             heap.insertar(*actual, metricas);
-//             actual = actual->siguiente;
-//         }
-//     }
-// }
+// Ejecucion (formato obligatorio del enunciado):
+//   cybershield entrada.csv ranking.csv metricas.txt
 
-int main(int argumentos, char* arvg[]) {
-    
-    if (argumentos <2){
-        cout << "USo: " <<arvg[0] << "<archivo.csv> [carpeta_salida]" << endl;
+int main(int argumentos, char* argv[]) {
+
+    if (argumentos != 4) {
+        cout << "Uso: " << argv[0] << " entrada.csv ranking.csv metricas.txt" << endl;
         return 1;
     }
-    string ruta_entrada = arvg[1];
-    string carpeta_salida = (argumentos >=3) ? arvg[2] : "resultados";
-    Metricas metricas;
-    TablaHash table(metricas);
-    MaxHeap heap(metricas);
-    Lector CSV lector;
+    string ruta_entrada = argv[1];
+    string ruta_ranking = argv[2];
+    string ruta_metricas = argv[3];
 
-    if(!lector.abrir(ruta_entrada)){
-       cout << "Error: no se pudo abrir " << ruta_entrada << endl;
-        return 1; 
+    // ---------------------------------------------------------------
+    // 1. Leer todo el CSV a memoria (NO entra en tiempo_proceso_ms)
+    //    Arreglos dinamicos propios que duplican su capacidad (sin vector).
+    // ---------------------------------------------------------------
+    LectorCSV lector;
+    if (!lector.abrirArchivo(ruta_entrada)) {
+        cout << "Error: no se pudo abrir " << ruta_entrada << endl;
+        return 1;
     }
 
-    auto inicio = high_resolution_clock::now();
+    int capacidad = 1024;
+    int n = 0;
+    string* ids = new string[capacidad];
+    int* severidades = new int[capacidad];
 
     string alerta_id, incidente_id;
+    int severidad;
+    while (lector.leerSiguienteAlerta(alerta_id, incidente_id, severidad)) {
+        if (n == capacidad) {
+            int nuevaCapacidad = capacidad * 2;
+            string* nuevosIds = new string[nuevaCapacidad];
+            int* nuevasSev = new int[nuevaCapacidad];
+            for (int i = 0; i < n; i++) {
+                nuevosIds[i] = ids[i];
+                nuevasSev[i] = severidades[i];
+            }
+            delete[] ids;
+            delete[] severidades;
+            ids = nuevosIds;
+            severidades = nuevasSev;
+            capacidad = nuevaCapacidad;
+        }
+        ids[n] = incidente_id;
+        severidades[n] = severidad;
+        n++;
+    }
+    lector.cerrarArchivo();
+
+    // ---------------------------------------------------------------
+    // 2. Consolidacion + ranking (SI entra en tiempo_proceso_ms)
+    // ---------------------------------------------------------------
+    Metricas metricas;
+    auto inicio = steady_clock::now();
+
+    TablaHash tabla(1024, metricas);   // TODO (equipo): justificar el tamano inicial en el informe
+    for (int i = 0; i < n; i++) {
+        tabla.registrarAlerta(ids[i], severidades[i]);
+    }
+
+    int u = tabla.getCantidadIncidentes();
+    Incidente** ranking = new Incidente*[u > 0 ? u : 1];
+    tabla.copiarIncidentes(ranking);
+
+    // TODO (equipo): ordenar con el MaxHeap. Cuando maxHeap.cpp este listo, algo como:
+    //   MaxHeap heap(u, metricas);
+    //   for (int i = 0; i < u; i++) heap.insertar(ranking[i]);   // (o heapify)
+    //   for (int i = 0; i < u; i++) ranking[i] = heap.sacarMayor();
+    // MIENTRAS TANTO el ranking sale SIN ORDENAR (los valores si son correctos).
+
+    auto fin = steady_clock::now();
+    metricas.tiempo_proceso_ms = duration<double, milli>(fin - inicio).count();
+
+    // ---------------------------------------------------------------
+    // 3. Escribir salidas (NO entra en tiempo_proceso_ms)
+    // ---------------------------------------------------------------
+    ofstream salidaRanking(ruta_ranking);
+    if (!salidaRanking.is_open()) {
+        cout << "Error: no se pudo crear " << ruta_ranking << endl;
+        return 1;
+    }
+    salidaRanking << "posicion,incidente_id,cantidad_alertas,prioridad_total\n";
+    for (int i = 0; i < u; i++) {
+        salidaRanking << (i + 1) << ',' << ranking[i]->incidente_id << ','
+                      << ranking[i]->cantidad_alertas << ',' << ranking[i]->prioridad_total << '\n';
+    }
+    salidaRanking.close();
+
+    ofstream salidaMetricas(ruta_metricas);
+    if (!salidaMetricas.is_open()) {
+        cout << "Error: no se pudo crear " << ruta_metricas << endl;
+        return 1;
+    }
+    salidaMetricas << "sondeos_hash=" << metricas.sondeos_hash << '\n';
+    salidaMetricas << "comparaciones_heap=" << metricas.comparaciones_heap << '\n';
+    salidaMetricas << "intercambios_heap=" << metricas.intercambios_heap << '\n';
+    salidaMetricas << "tiempo_proceso_ms=" << metricas.tiempo_proceso_ms << '\n';
+    salidaMetricas.close();
+
+    delete[] ranking;
+    delete[] ids;
+    delete[] severidades;
     return 0;
 }
-

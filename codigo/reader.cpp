@@ -1,3 +1,7 @@
+// OBSOLETO: este archivo fue reemplazado por lector_csv.h/.cpp.
+// Se desactivo con #if 0 porque tenia otro main() y rompia la compilacion.
+// Pueden borrarlo cuando quieran (sigue en el historial de git).
+#if 0
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -40,3 +44,4 @@ int main() {
 
     return 0;
 }
+#endif

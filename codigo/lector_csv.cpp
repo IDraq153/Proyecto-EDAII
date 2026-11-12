@@ -15,26 +15,32 @@ bool LectorCSV::abrirArchivo(string nombreArchivo) {
 }
 
 // Leer siguiente alerta
-bool LectorCSV::leerSiguienteAlerta(int& numero_alerta, int& numero_incidente, int& severidad) {
+bool LectorCSV::leerSiguienteAlerta(string& alerta_id, string& incidente_id, int& severidad) {
     string linea;
-    string alerta_id, incidente_id;
 
-    // Leer una fila
-    if (!getline(archivo, linea)) {
-        return false;
-    }
+    // Leer una fila (se saltan lineas vacias)
+    do {
+        if (!getline(archivo, linea)) {
+            return false;
+        }
+        // CAMBIO: quitar el '\r' final si el archivo viene con saltos de linea de Windows
+        if (!linea.empty() && linea[linea.size() - 1] == '\r') {
+            linea.erase(linea.size() - 1);
+        }
+    } while (linea.empty());
+
     stringstream ss(linea);
+    string campoSeveridad;
 
-    // Leer alerta
+    // Leer alerta (se guarda como texto, no se convierte a numero)
     getline(ss, alerta_id, ',');
-    numero_alerta = stoi(alerta_id.substr(1));
 
-    // Leer incidente
+    // Leer incidente (CAMBIO: se mantiene como texto completo, ej. "INC-0000050")
     getline(ss, incidente_id, ',');
-    numero_incidente = stoi(incidente_id.substr(4));
 
     // Leer severidad
-    ss >> severidad;
+    getline(ss, campoSeveridad, ',');
+    severidad = stoi(campoSeveridad);
     return true;
 }
 

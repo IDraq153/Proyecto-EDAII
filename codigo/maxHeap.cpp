@@ -1,7 +1,9 @@
-#include <iostream>
-using namespace std;
+#include "maxHeap.h"
 
-int main() {
-    cout << "Hello, World!" << endl;
-    return 0;
-}
+// CAMBIO: se quito el main() "Hello, World!" (solo puede haber un main en el proyecto).
+
+// TODO (equipo): implementar aqui los metodos declarados en maxHeap.h:
+//   MaxHeap::MaxHeap, MaxHeap::~MaxHeap, insertar, sacarMayor, estaVacio,
+//   subir, bajar y esMayor.
+// Recordar: cada llamada a esMayor suma 1 a metricas->comparaciones_heap
+// y cada intercambio suma 1 a metricas->intercambios_heap.
