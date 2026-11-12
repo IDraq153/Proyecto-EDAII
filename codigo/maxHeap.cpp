@@ -76,7 +76,7 @@ private:
 public:
     maxHeap::maxHeap(int capacidad, Metricas& metricas){
         this->capacidad = capacidad;
-        this->metricas = metricas
+        this->metricas = metricas;
         this->cantidad = -1;
         this->arreglo = new Incidente();
 
@@ -106,8 +106,11 @@ public:
         return mayor;
 
     }
+    // verifica si mi arreglo esdta vacio, para hacer las respectivas comparaciones
+    bool maxHeap::estVacio(){
+        return cantidad == 0;
 
-
+    }
 
 
 
