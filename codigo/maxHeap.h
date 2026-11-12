@@ -4,8 +4,6 @@
 #include "incidente.h"
 #include "metricas.h"
 
-// Interfaz segun el README del equipo. Los metodos todavia NO estan implementados:
-// no llamarlos desde main hasta completar maxHeap.cpp.
 class MaxHeap {
 private:
     Incidente** arreglo;   // guarda punteros: un intercambio mueve un puntero, no un string

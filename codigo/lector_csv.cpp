@@ -23,7 +23,6 @@ bool LectorCSV::leerSiguienteAlerta(string& alerta_id, string& incidente_id, int
         if (!getline(archivo, linea)) {
             return false;
         }
-        // CAMBIO: quitar el '\r' final si el archivo viene con saltos de linea de Windows
         if (!linea.empty() && linea[linea.size() - 1] == '\r') {
             linea.erase(linea.size() - 1);
         }

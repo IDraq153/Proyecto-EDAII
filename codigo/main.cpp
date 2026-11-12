@@ -23,10 +23,6 @@ int main(int argumentos, char* argv[]) {
     string ruta_ranking = argv[2];
     string ruta_metricas = argv[3];
 
-    // ---------------------------------------------------------------
-    // 1. Leer todo el CSV a memoria (NO entra en tiempo_proceso_ms)
-    //    Arreglos dinamicos propios que duplican su capacidad (sin vector).
-    // ---------------------------------------------------------------
     LectorCSV lector;
     if (!lector.abrirArchivo(ruta_entrada)) {
         cout << "Error: no se pudo abrir " << ruta_entrada << endl;
@@ -60,10 +56,6 @@ int main(int argumentos, char* argv[]) {
         n++;
     }
     lector.cerrarArchivo();
-
-    // ---------------------------------------------------------------
-    // 2. Consolidacion + ranking (SI entra en tiempo_proceso_ms)
-    // ---------------------------------------------------------------
     Metricas metricas;
     auto inicio = steady_clock::now();
 
@@ -77,17 +69,11 @@ int main(int argumentos, char* argv[]) {
     tabla.copiarIncidentes(ranking);
 
     // TODO (equipo): ordenar con el MaxHeap. Cuando maxHeap.cpp este listo, algo como:
-    //   MaxHeap heap(u, metricas);
-    //   for (int i = 0; i < u; i++) heap.insertar(ranking[i]);   // (o heapify)
-    //   for (int i = 0; i < u; i++) ranking[i] = heap.sacarMayor();
-    // MIENTRAS TANTO el ranking sale SIN ORDENAR (los valores si son correctos).
+    // MIENTRAS TANTO el ranking sale SIN ORDENAR falta esto debemos ordenar.
 
     auto fin = steady_clock::now();
     metricas.tiempo_proceso_ms = duration<double, milli>(fin - inicio).count();
 
-    // ---------------------------------------------------------------
-    // 3. Escribir salidas (NO entra en tiempo_proceso_ms)
-    // ---------------------------------------------------------------
     ofstream salidaRanking(ruta_ranking);
     if (!salidaRanking.is_open()) {
         cout << "Error: no se pudo crear " << ruta_ranking << endl;

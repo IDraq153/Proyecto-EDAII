@@ -13,7 +13,6 @@ private:
 
 public:
     bool abrirArchivo(string nombreArchivo);
-    // CAMBIO: los IDs se devuelven como string (antes int con stoi)
     bool leerSiguienteAlerta(string& alerta_id, string& incidente_id, int& severidad);
     void cerrarArchivo();
 };

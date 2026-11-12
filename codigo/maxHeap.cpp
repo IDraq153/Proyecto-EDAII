@@ -1,7 +1,5 @@
 #include "maxHeap.h"
 
-// CAMBIO: se quito el main() "Hello, World!" (solo puede haber un main en el proyecto).
-
 // TODO (equipo): implementar aqui los metodos declarados en maxHeap.h:
 //   MaxHeap::MaxHeap, MaxHeap::~MaxHeap, insertar, sacarMayor, estaVacio,
 //   subir, bajar y esMayor.
