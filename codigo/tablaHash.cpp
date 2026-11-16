@@ -54,6 +54,11 @@ void TablaHash::registrarAlerta(const std::string& id, int severidad) {
     cantidadIncidentes++;
 
     // TODO (equipo): si se supera el factor de carga, llamar a agrandarTabla() falta esto
+    //Si el factor de carga llego a 75% o mas redimensionar tabla
+    if ((float)cantidadIncidentes / tamanoTabla >= 0.75f) {
+        redimensionar();
+    }
+
 }
 
 int TablaHash::getCantidadIncidentes() const {
@@ -72,4 +77,50 @@ int TablaHash::copiarIncidentes(Incidente** destino) const {
         }
     }
     return k;
+}
+
+void TablaHash::pasarAlHeap(MaxHeap& heap) {
+    for (int i = 0; i < tamanoTabla; i++) {
+        Incidente* actual = tablaIncidentes[i];
+        while (actual != nullptr) {
+            heap.insertar(*actual);
+            actual = actual->siguiente;
+        }
+    }
+}
+
+void TablaHash::redimensionar() {
+    //Guardar en variables aux la tabla anterior y su tamaño
+    int tamanoAnterior = tamanoTabla;
+    Incidente** tablaAnterior = tablaIncidentes;
+
+    //Crear nueva tabla con tamaño duplciado
+    tamanoTabla = tamanoAnterior * 2;
+    tablaIncidentes = new Incidente*[tamanoTabla];
+
+    //Poner toda la nueva tabla en nullptr
+    for (int i = 0; i < tamanoTabla; i++) {
+        tablaIncidentes[i] = nullptr;
+    }
+    //Por cada posicion de la tabla anterior
+    for (int i = 0; i < tamanoAnterior; i++){
+        //Elemento en la posicion i
+        Incidente* actual = tablaAnterior[i];
+        while (actual != nullptr){
+            Incidente* sig = actual->siguiente;
+            int nuevaPosicion = funcionHash(actual->incidente_id);
+            //El siguiente del incidente actual va a ser el que se encuentra en frente en la posicion indicada de la tabla nueva
+            actual->siguiente = tablaIncidentes[nuevaPosicion];
+            //Actualiza el casillero de la nueva tbala con el incidente actual
+            tablaIncidentes[nuevaPosicion] = actual;
+
+            if (metricas != nullptr) {
+                metricas->sondeos_hash++;
+            }
+
+            actual = sig;
+        }
+    }
+
+    delete[] tablaAnterior;
 }

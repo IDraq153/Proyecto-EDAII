@@ -23,6 +23,9 @@ public:
     int copiarIncidentes(Incidente** destino) const;    
 
     // TODO (equipo): void agrandarTabla();  -> rehash cuando cantidadIncidentes supere el factor de carga
+    void pasarAlHeap(MaxHeap& heap);
+    void redimensionar();
+
 };
 
 #endif // TABLAHASH_H
