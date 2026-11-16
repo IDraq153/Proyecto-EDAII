@@ -68,8 +68,14 @@ int main(int argumentos, char* argv[]) {
     Incidente** ranking = new Incidente*[u > 0 ? u : 1];
     tabla.copiarIncidentes(ranking);
 
-    // TODO (equipo): ordenar con el MaxHeap. Cuando maxHeap.cpp este listo, algo como:
-    // MIENTRAS TANTO el ranking sale SIN ORDENAR falta esto debemos ordenar.
+    // Ordenamiento de datos por prioridad usando un MaxHeap
+    MaxHeap heap(u, metricas);
+    for (int i = 0; i < u; i++) {
+        heap.insertar(ranking[i]);
+    }
+    for (int i = 0; i < u; i++) {
+        ranking[i] = heap.sacarMayor();
+    }
 
     auto fin = steady_clock::now();
     metricas.tiempo_proceso_ms = duration<double, milli>(fin - inicio).count();

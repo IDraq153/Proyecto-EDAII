@@ -1,4 +1,4 @@
 sondeos_hash=0
-comparaciones_heap=0
-intercambios_heap=0
-tiempo_proceso_ms=0.6038
+comparaciones_heap=7836
+intercambios_heap=4067
+tiempo_proceso_ms=0.6831
