@@ -13,7 +13,7 @@ private:
     int tamanoTabla;
 
 public:
-    TablaHash(int tamanoTabla, Metricas& metricas);
+    TablaHash(int tamanoTabla, Metricas* metricas);
     ~TablaHash();
 
     int funcionHash(const std::string& id);             
