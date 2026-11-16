@@ -59,7 +59,7 @@ int main(int argumentos, char* argv[]) {
     Metricas metricas;
     auto inicio = steady_clock::now();
 
-    TablaHash tabla(1024, metricas);   // TODO (equipo): justificar el tamano inicial en el informe
+    TablaHash tabla(1024, &metricas);   // TODO (equipo): justificar el tamano inicial en el informe
     for (int i = 0; i < n; i++) {
         tabla.registrarAlerta(ids[i], severidades[i]);
     }
