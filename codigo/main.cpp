@@ -10,7 +10,7 @@
 using namespace std;
 using namespace std::chrono;
 
-// Ejecucion (formato obligatorio del enunciado):
+// Ejecucion 
 //   cybershield entrada.csv ranking.csv metricas.txt
 
 int main(int argumentos, char* argv[]) {
