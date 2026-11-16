@@ -1,7 +1,7 @@
 #include <iostream>
 #include "tablaHash.h"
 
-TablaHash::TablaHash(int tamanoTabla, Metricas& metricas) {
+TablaHash::TablaHash(int tamanoTabla, Metricas* metricas) {
     if (tamanoTabla < 1) tamanoTabla = 1;   // evita division entre cero
     this->tamanoTabla = tamanoTabla;
     this->cantidadIncidentes = 0;
@@ -9,7 +9,7 @@ TablaHash::TablaHash(int tamanoTabla, Metricas& metricas) {
     for (int i = 0; i < tamanoTabla; i++) {
         tablaIncidentes[i] = nullptr;
     }
-    this->metricas = &metricas;
+    this->metricas = metricas;
 }
 
 TablaHash::~TablaHash() {
@@ -38,6 +38,7 @@ void TablaHash::registrarAlerta(const std::string& id, int severidad) {
     // TODO (equipo): incrementar metricas->sondeos_hash segun la regla 
     // (por ejemplo, 1 por cada nodo examinado y 1 si la cubeta esta vacia).
     while (actual != nullptr) {
+        metricas->sondeos_hash++;
         if (actual->incidente_id == id) {
             actual->cantidad_alertas++;
             actual->prioridad_total += severidad;
