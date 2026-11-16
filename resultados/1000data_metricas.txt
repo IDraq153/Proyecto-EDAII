@@ -1,4 +1,0 @@
-sondeos_hash=0
-comparaciones_heap=17177
-intercambios_heap=8551
-tiempo_proceso_ms=1.8629

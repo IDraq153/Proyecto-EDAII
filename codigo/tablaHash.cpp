@@ -25,9 +25,15 @@ TablaHash::~TablaHash() {
 }
 
 int TablaHash::funcionHash(const std::string& id) {
-    // falta esto
-    (void)id;
-    return 0;
+    long long valor =  0;
+    for (int i = 4; i < id.length(); i++) {  // saltar los primeros 4 caracteres INC-
+        char caracter = id[i];
+        if (caracter >= '0' && caracter <= '9') {
+            int digito = caracter - '0';
+            valor = valor * 10 + digito;
+        }
+    }
+    return valor % tamanoTabla;
 }
 
 void TablaHash::registrarAlerta(const std::string& id, int severidad) {
@@ -35,8 +41,6 @@ void TablaHash::registrarAlerta(const std::string& id, int severidad) {
     Incidente* actual = tablaIncidentes[posicion];
 
     // Buscar en la lista de esa posicion falta eso
-    // TODO (equipo): incrementar metricas->sondeos_hash segun la regla 
-    // (por ejemplo, 1 por cada nodo examinado y 1 si la cubeta esta vacia).
     while (actual != nullptr) {
         metricas->sondeos_hash++;
         if (actual->incidente_id == id) {
@@ -53,7 +57,6 @@ void TablaHash::registrarAlerta(const std::string& id, int severidad) {
     tablaIncidentes[posicion] = nuevo;
     cantidadIncidentes++;
 
-    // TODO (equipo): si se supera el factor de carga, llamar a agrandarTabla() falta esto
     //Si el factor de carga llego a 75% o mas redimensionar tabla
     if ((float)cantidadIncidentes / tamanoTabla >= 0.75f) {
         redimensionar();
@@ -77,16 +80,6 @@ int TablaHash::copiarIncidentes(Incidente** destino) const {
         }
     }
     return k;
-}
-
-void TablaHash::pasarAlHeap(MaxHeap& heap) {
-    for (int i = 0; i < tamanoTabla; i++) {
-        Incidente* actual = tablaIncidentes[i];
-        while (actual != nullptr) {
-            heap.insertar(*actual);
-            actual = actual->siguiente;
-        }
-    }
 }
 
 void TablaHash::redimensionar() {
