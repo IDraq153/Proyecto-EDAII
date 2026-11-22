@@ -5,7 +5,7 @@ TablaHash::TablaHash(int tamanoTabla, Metricas* metricas) {
     if (tamanoTabla < 1) tamanoTabla = 1;   // evita division entre cero
     this->tamanoTabla = tamanoTabla;
     this->cantidadIncidentes = 0;
-    this->tablaIncidentes = new Incidente*[tamanoTabla];
+    this->tablaIncidentes = new Incidente*[tamanoTabla]; //  lista enlazada
     for (int i = 0; i < tamanoTabla; i++) {
         tablaIncidentes[i] = nullptr;
     }
@@ -36,16 +36,19 @@ void TablaHash::registrarAlerta(const std::string& id, int severidad) {
     // Buscar en la lista de esa posicion falta eso
     while (actual != nullptr) {
         metricas->sondeos_hash++;
+
+        // si es el mismo incidente no creara otro solo se sumara a el
         if (actual->incidente_id == id) {
             actual->cantidad_alertas++;
             actual->prioridad_total += severidad;
             return;
         }
-        actual = actual->siguiente;
+        actual = actual->siguiente; // vamos iterando en la lista enlazada
     }
 
     // No existe incidente en la tabla hash
     Incidente* nuevo = new Incidente(id, severidad);
+    // se agrega al inicio
     nuevo->siguiente = tablaIncidentes[posicion];
     tablaIncidentes[posicion] = nuevo;
     cantidadIncidentes++;
@@ -63,7 +66,7 @@ int TablaHash::getCantidadIncidentes() const {
 
 // Copia los punteros de todos los incidentes al arreglo destino
 // (destino debe tener espacio para getCantidadIncidentes() elementos).
-int TablaHash::copiarIncidentes(Incidente** destino) const {
+void TablaHash::copiarIncidentes(Incidente** destino) const {
     int k = 0;
     for (int i = 0; i < tamanoTabla; i++) {
         Incidente* actual = tablaIncidentes[i];
@@ -72,7 +75,6 @@ int TablaHash::copiarIncidentes(Incidente** destino) const {
             actual = actual->siguiente;
         }
     }
-    return k;
 }
 
 void TablaHash::redimensionar() {

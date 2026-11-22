@@ -18,7 +18,7 @@ bool LectorCSV::abrirArchivo(string nombreArchivo) {
 bool LectorCSV::leerSiguienteAlerta(string& alerta_id, string& incidente_id, int& severidad) {
     string linea;
 
-    // Leer una fila (se saltan lineas vacias)
+    // Leer una fila se saltan lineas vacias
     do {
         if (!getline(archivo, linea)) {
             return false;
@@ -31,10 +31,10 @@ bool LectorCSV::leerSiguienteAlerta(string& alerta_id, string& incidente_id, int
     stringstream ss(linea);
     string campoSeveridad;
 
-    // Leer alerta (se guarda como texto, no se convierte a numero)
+    // Leer alerta e guarda como texto, no se convierte a numero
     getline(ss, alerta_id, ',');
 
-    // Leer incidente (CAMBIO: se mantiene como texto completo, ej. "INC-0000050")
+    // Leer incidente
     getline(ss, incidente_id, ',');
 
     // Leer severidad

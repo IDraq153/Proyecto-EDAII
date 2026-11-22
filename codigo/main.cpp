@@ -30,11 +30,11 @@ int main(int argumentos, char* argv[]) {
     }
 
     int capacidad = 1024;
-    int n = 0;
+    int n = 0; // cantidad de elementos que ya vamos ingresando a los arreglos
     string* ids = new string[capacidad];
     int* severidades = new int[capacidad];
 
-    string alerta_id, incidente_id;
+    string alerta_id, incidente_id; // se guardo en string pq al final debe verse el ID original
     int severidad;
     while (lector.leerSiguienteAlerta(alerta_id, incidente_id, severidad)) {
         if (n == capacidad) {
@@ -59,6 +59,8 @@ int main(int argumentos, char* argv[]) {
     Metricas metricas;
     auto inicio = steady_clock::now();
 
+
+    // aca empezamos con agrupar alertas por incidentes 
     TablaHash tabla(1024, &metricas);
     for (int i = 0; i < n; i++) {
         tabla.registrarAlerta(ids[i], severidades[i]);

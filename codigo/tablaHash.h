@@ -8,7 +8,7 @@
 class TablaHash {
 private:
     Metricas* metricas;            
-    Incidente** tablaIncidentes;
+    Incidente** tablaIncidentes; // lista enlazada apuntamos a direcciones que apuntan a incidentes
     int cantidadIncidentes;
     int tamanoTabla;
 
@@ -20,7 +20,7 @@ public:
     void registrarAlerta(const std::string& id, int severidad);
 
     int getCantidadIncidentes() const;                  
-    int copiarIncidentes(Incidente** destino) const;    
+    void copiarIncidentes(Incidente** destino) const;    
 
     void redimensionar();
 };

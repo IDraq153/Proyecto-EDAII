@@ -5,7 +5,6 @@
 
 struct Incidente {
     std::string incidente_id;
-                                //  el ranking debe imprimir el ID original INC-0000050 al ser int da problema
     int cantidad_alertas;
     int prioridad_total;
     Incidente* siguiente;       // siguiente nodo en la lista (encadenamiento)
