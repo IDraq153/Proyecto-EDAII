@@ -25,14 +25,7 @@ TablaHash::~TablaHash() {
 }
 
 int TablaHash::funcionHash(const std::string& id) {
-    long long valor =  0;
-    for (int i = 4; i < id.length(); i++) {  // saltar los primeros 4 caracteres INC-
-        char caracter = id[i];
-        if (caracter >= '0' && caracter <= '9') {
-            int digito = caracter - '0';
-            valor = valor * 10 + digito;
-        }
-    }
+    int valor = std::stoi(id.substr(4));
     return valor % tamanoTabla;
 }
 

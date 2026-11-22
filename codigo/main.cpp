@@ -16,7 +16,7 @@ using namespace std::chrono;
 int main(int argumentos, char* argv[]) {
 
     if (argumentos != 4) {
-        cout << "Uso: " << argv[0] << " entrada.csv ranking.csv metricas.txt" << endl;
+        cout << "Uso " << argv[0] << " entrada.csv ranking.csv metricas.txt" << endl;
         return 1;
     }
     string ruta_entrada = argv[1];
@@ -25,7 +25,7 @@ int main(int argumentos, char* argv[]) {
 
     LectorCSV lector;
     if (!lector.abrirArchivo(ruta_entrada)) {
-        cout << "Error: no se pudo abrir " << ruta_entrada << endl;
+        cout << "Error no se pudo abrir " << ruta_entrada << endl;
         return 1;
     }
 
@@ -82,7 +82,7 @@ int main(int argumentos, char* argv[]) {
 
     ofstream salidaRanking(ruta_ranking);
     if (!salidaRanking.is_open()) {
-        cout << "Error: no se pudo crear " << ruta_ranking << endl;
+        cout << "Error no se pudo crear " << ruta_ranking << endl;
         return 1;
     }
     salidaRanking << "posicion,incidente_id,cantidad_alertas,prioridad_total\n";
@@ -94,7 +94,7 @@ int main(int argumentos, char* argv[]) {
 
     ofstream salidaMetricas(ruta_metricas);
     if (!salidaMetricas.is_open()) {
-        cout << "Error: no se pudo crear " << ruta_metricas << endl;
+        cout << "Error no se pudo crear " << ruta_metricas << endl;
         return 1;
     }
     salidaMetricas << "sondeos_hash=" << metricas.sondeos_hash << '\n';
