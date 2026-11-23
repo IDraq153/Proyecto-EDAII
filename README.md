@@ -1,4 +1,4 @@
-CYBERSHIELD - Proyecto final EDA II (Universidad de Lima)
+CYBERSHIELD - Proyecto final EDA II 
 =========================================================
 
 1. QUÉ HACE EL PROGRAMA

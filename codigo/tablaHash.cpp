@@ -64,8 +64,7 @@ int TablaHash::getCantidadIncidentes() const {
     return cantidadIncidentes;
 }
 
-// Copia los punteros de todos los incidentes al arreglo destino
-// (destino debe tener espacio para getCantidadIncidentes() elementos).
+// Copia los punteros de todos los incidentes al arreglo destino, para luego poder ordenarlos en un heap
 void TablaHash::copiarIncidentes(Incidente** destino) const {
     int k = 0;
     for (int i = 0; i < tamanoTabla; i++) {
@@ -95,7 +94,9 @@ void TablaHash::redimensionar() {
         //Elemento en la posicion i
         Incidente* actual = tablaAnterior[i];
         while (actual != nullptr){
+            // Guardar el siguiente del incidente actual antes de cambiarlo
             Incidente* sig = actual->siguiente;
+
             int nuevaPosicion = funcionHash(actual->incidente_id);
             //El siguiente del incidente actual va a ser el que se encuentra en frente en la posicion indicada de la tabla nueva
             actual->siguiente = tablaIncidentes[nuevaPosicion];

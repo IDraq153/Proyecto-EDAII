@@ -1,11 +1,7 @@
-#!/bin/bash
 # Compila el proyecto y ejecuta todas las pruebas, guardando las salidas en resultados/
-# Uso (desde la carpeta PROYECTO, en Git Bash):  bash ejecutar_pruebas.sh
-
 cd "$(dirname "$0")"
 PRUEBAS=CyberShield_Pruebas_Estudiantes
 
-# Elegir el comando de Python disponible
 PY=python
 command -v $PY >/dev/null 2>&1 || PY=python3
 command -v $PY >/dev/null 2>&1 || PY=py
