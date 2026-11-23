@@ -6,25 +6,19 @@ CYBERSHIELD - Proyecto final EDA II
 Lee un CSV de alertas de ciberseguridad (alerta_id,incidente_id,severidad),
 agrupa las alertas por incidente (suma severidades y cuenta alertas) y genera
 un ranking de incidentes: mayor prioridad_total primero; si hay empate, gana el
-incidente_id menor (comparado como texto, ej. "INC-0000050").
-
-Restricciones cumplidas: tabla hash y max-heap propios; no se usa vector, map,
-unordered_map, priority_queue ni sort.
-
+incidente_id menor.
 
 2. COMPILAR
 -----------
-Desde la carpeta raíz del proyecto (Git Bash o terminal con g++):
+Desde la carpeta raíz del proyecto:
 
     g++ -std=c++17 -O2 codigo/*.cpp -o codigo/cybershield
-
 
 3. EJECUTAR
 -----------
     ./codigo/cybershield entrada.csv ranking.csv metricas.txt
 
 Ejemplo:
-
     ./codigo/cybershield datos_prueba/1000data.csv resultados/1000data_ranking.csv resultados/1000data_metricas.txt
 
 Salidas:
@@ -37,14 +31,11 @@ Salidas:
 -----------------------------
     bash ejecutar_pruebas.sh
 
-Compila, corre los casos oficiales (carpeta CyberShield_Pruebas_Estudiantes,
-descomprimida dentro de esta carpeta) y los de datos_prueba/, guarda todo en
+Compila, corre los casos oficiales, guarda todo en
 resultados/ y compara cada ranking con el esperado usando comparar.py.
 
 Para comparar un caso a mano:
-
     python comparar.py esperado.csv resultado.csv
-
 
 5. ESTRUCTURA DE CARPETAS
 -------------------------
